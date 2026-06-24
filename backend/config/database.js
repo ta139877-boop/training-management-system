@@ -1,17 +1,13 @@
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
-// إعداد الاتصال بقاعدة البيانات المحلية
 const pool = mysql.createPool({
-    host: 'localhost',       // لأن قاعدة البيانات على نفس جهاز السيرفر
-    user: 'root',            // اسم المستخدم الافتراضي لـ MySQL
-    password: '',            // الرقم السري (اتركه فارغاً إذا كنت تستخدم XAMPP افتراضياً)
-    database: 'training_db', // اسم قاعدة البيانات التي أنشأتها
+    host: 'localhost',
+    user: 'root',
+    password: '', 
+    database: 'training_db', // اسم قاعدة بياناتك التي وجدناها في phpMyAdmin
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
 });
 
-// تحويل الـ Pool لدعم نظام الـ Promises (async/await) لسهولة الكود
-const promisePool = pool.promise();
-
-module.exports = promisePool;
+module.exports = pool;
