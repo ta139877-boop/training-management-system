@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رصد اختبار وشهادة جديدة</title>
+    <!-- استدعاء مكتبة التنسيق بدون إنترنت (يمكنك تحميل الملف وحفظه داخلياً لاحقاً) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <div class="max-w-2xl mx-auto my-10 bg-white p-8 rounded-xl shadow-md border border-gray-100">
+        <h2 class="text-2xl font-bold text-blue-600 mb-6 border-b pb-3">إدخال نتيجة اختبار وشهادة متدرب</h2>
+        
+        <!-- النموذج يرسل البيانات والملفات مباشرة إلى السيرفر الداخلي -->
+        <form action="/api/certificates" method="POST" enctype="multipart/form-data" class="space-y-5">
+            
+            <!-- اختيار الفرد (في النظام الحقيقي يتم ملؤه برمجياً من قاعدة البيانات) -->
+            <div>
+                <label class="block text-sm font-semibold mb-2">رقم الفرد (المعرف الداخلي في النظام):</label>
+                <input type="number" name="user_id" required placeholder="مثال: 1" 
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <!-- اختيار نوع الاختبار -->
+            <div>
+                <label class="block text-sm font-semibold mb-2">رقم الاختبار/الدورة:</label>
+                <input type="number" name="exam_id" required placeholder="مثال: 5 (رقم اختبار CCNA مثلاً)" 
+                       class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+
+            <!-- الدرجة والحالة -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">الدرجة المحققة:</label>
+                    <input type="number" name="score" placeholder="مثال: 85" 
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">الحالة:</label>
+                    <select name="status" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
+                        <option value="ناجح">ناجح</option>
+                        <option value="راسب">راسب</option>
+                        <option value="مستمع">مستمع (حضور فقط)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- التواريخ -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">تاريخ صدور الشهادة:</label>
+                    <input type="date" name="issue_date" required 
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">تاريخ الانتهاء (إن وجد):</label>
+                    <input type="date" name="expiry_date" 
+                           class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+            </div>
+
+            <!-- رفع ملف الشهادة -->
+            <div class="bg-blue-50 p-4 rounded-lg border border-dashed border-blue-300">
+                <label class="block text-sm font-semibold text-blue-700 mb-2">نسخة من الشهادة (PDF أو صورة):</label>
+                <input type="file" name="cert_file" accept=".pdf, image/*" class="text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+            </div>
+
+            <!-- أزرار التحكم -->
+            <div class="flex justify-end space-x-3 space-x-reverse pt-4">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg transition duration-200">حفظ وحفظ المستند</button>
+                <a href="/views/dashboard.html" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-6 py-2 rounded-lg transition duration-200 text-center">إلغاء</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
